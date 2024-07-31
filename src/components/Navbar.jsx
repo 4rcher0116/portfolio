@@ -3,18 +3,16 @@ import { Link } from "react-router-dom";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants";
-import { close, customLogo, menu, smallLogo } from "../assets";
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { close, customLogo, menu } from "../assets";
 
 const Navbar = () => {
-  const smallLogoNeeded = useMediaQuery("(max-width: 640px)");
 
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
 
   return (
     <nav
-      className={`${styles.paddingX} w-full flex items-center py-2 fixed top-0 z-20 bg-primary`}
+      className={`${styles.paddingX} w-full flex items-center py-2 fixed top-0 z-20 bg-primary opacity-75`}
     >
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
         <Link
@@ -25,7 +23,7 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={customLogo} alt="logo" className="h-[220px]" />
+          <img src={customLogo} alt="logo" className="h-[120px]" />
         </Link>
 
         <ul className="list-none hidden sm:flex flex-row gap-10">

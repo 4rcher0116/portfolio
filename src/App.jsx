@@ -10,7 +10,7 @@ import {
   Tech,
   Works,
 } from "./components";
-import './index.css'
+import "./index.css";
 
 const App = () => {
   return (
