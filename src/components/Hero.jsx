@@ -41,8 +41,8 @@ const Hero = () => {
       </div>
       <ComputersCanvas />
 
-      <div className="absolute sm:hidden -bottom-15 w-full flex justify-center items-center ">
-        <a href="#about"  onClick={handleScrollToSection}>
+      <div className="absolute -bottom-15 w-full flex justify-center items-center " onClick={handleScrollToSection}>
+        <a href="#about">
           <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
             <motion.div
               animate={{
@@ -50,7 +50,7 @@ const Hero = () => {
               }}
               transition={{
                 duration: 1.5,
-                repeat: Infinity,
+                repeat: 0,
                 repeatType: 'loop'
               }}
               className="w-3 h-3 rounded-full bg-secondary mb-1 z-10"
