@@ -1,20 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { close, customLogo, menu } from "../assets";
+import { useAnimation, motion } from "framer-motion";
 
 const Navbar = () => {
-
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 20) {
+        controls.start({ opacity: 1 });
+      } else {
+        controls.start({ opacity: 0.75 });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [controls]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 500px)");
+
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
 
   return (
-    <nav
-      className={`${styles.paddingX} w-full flex items-center py-2 fixed top-0 z-20 bg-primary opacity-75`}
+    <motion.nav
+      animate={controls}
+      initial={{ opacity: 0.75 }}
+      className={`${styles.paddingX} w-full flex items-center py-2 fixed top-0 z-20 bg-primary`}
     >
-      <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
+      <motion.div className="w-full flex justify-between items-center max-w-7xl mx-auto">
         <Link
           to="/"
           className="flex items-center gap-2"
@@ -23,7 +60,11 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={customLogo} alt="logo" className="h-[120px]" />
+          <img
+            src={customLogo}
+            alt="logo"
+            className={`${isMobile ? "h-[90px]" : "h-[120px]"} opacity-100`}
+          />
         </Link>
 
         <ul className="list-none hidden sm:flex flex-row gap-10">
@@ -63,7 +104,7 @@ const Navbar = () => {
                     active === nav.title ? "text-white" : "text-secondary"
                   } font-poppins font-medium cursor-pointer text-[16px]`}
                   onClick={() => {
-                    setActive(nav.title)
+                    setActive(nav.title);
                     setToggle(!toggle);
                   }}
                 >
@@ -73,8 +114,8 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
-      </div>
-    </nav>
+      </motion.div>
+    </motion.nav>
   );
 };
 
