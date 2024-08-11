@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import React from "react";
 import { Tilt } from "react-tilt";
 import { styles } from "../styles";
 import { creator, github } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
+import { array, node, number, string } from "prop-types";
 
 const ProjectCard = ({
   index,
@@ -82,6 +82,15 @@ const ProjectCard = ({
     </motion.div>
   );
 };
+
+ProjectCard.propTypes = {
+  index: number,
+  name: string,
+  description: string,
+  tags: array,
+  image: node,
+  source_code_link: string,
+}
 
 const Works = () => {
   return (
